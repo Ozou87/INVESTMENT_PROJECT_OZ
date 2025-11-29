@@ -1,3 +1,5 @@
+import math
+
 PE_INVALID = float('nan')
 PE_RATIO_THRESHOLDS = [
     (0.6,95),
@@ -54,22 +56,26 @@ PFCF_RATIO_THRESHOLDS = [
 PFCF_RATIO_DEFAULT = 5   
 
 #generic function that will find score and send it to specific function
-def score_by_thresholds(stock_value: float, sector_value: float, thresholds, pe_default) -> float:
+def score_by_thresholds(stock_value: float, sector_value: float, thresholds, default_score) -> float:
     
-    #להוסיף הגנה מפני חלוקה ב-0
-
+    #protecting from dividing by - 0
+    #checking weather stock_val/sector_cal is 'nan' ex.
+    if sector_value == 0 or math.isnan(stock_value) or math.isnan(sector_value):
+        return default_score
+    
     relative_multiple = stock_value / sector_value
 
     for limit, score in thresholds:
         if relative_multiple < limit:
             return score
-    return pe_default
+    return default_score
 
-stock_pe = input("pls enter stock pe: ")
-sector_pe = input("pls enter sector pe: ")
-st_pe = float(stock_pe)
-sec_pe = float(sector_pe)
+stock_pe = float(input("pls enter stock P/E: "))
+sector_pe = float(input("pls enter sector P/E: "))
 
-result_1 = score_by_thresholds(st_pe,sec_pe, PE_RATIO_THRESHOLDS, PE_RATIO_DEFAULT)
+stock_fpe = float(input("Enter stock Forward P/E: "))
+sector_fpe = float(input("Enter sector Forward P/E: "))
+
+result_1 = score_by_thresholds(stock_pe,sector_pe, PE_RATIO_THRESHOLDS, PE_RATIO_DEFAULT)
 print(f"this is the score for this data: {result_1}")
 

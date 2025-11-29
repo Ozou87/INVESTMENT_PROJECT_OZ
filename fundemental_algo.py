@@ -53,22 +53,16 @@ def fcf_score(free_cash_flow: float) -> int:
     return score_by_thresholds(free_cash_flow,FCF_THRESHOLDS,FCF_DEFAULT)
 
 #let user input values
-user_growth_input = input("PLS enter Annual Revenue Growth in %: ")
-user_profit_input = input("PLS enter Operating Margin in %: ")
-user_der_input = input("PLS enter Dept to Equity Ratio: ")
-user_fcf_input = input("PLS enter Free Cash Flow Margin in %: ")
-
-#converting the input into a float
-growth_value = float(user_growth_input)
-profit_value = float(user_profit_input)
-der_value = float(user_der_input)
-fcf_value = float(user_fcf_input)
+user_growth_input = float(input("PLS enter Annual Revenue Growth in %: "))
+user_profit_input = float(input("PLS enter Operating Margin in %: "))
+user_der_input = float(input("PLS enter Dept to Equity Ratio: "))
+user_fcf_input = float(input("PLS enter Free Cash Flow Margin in %: "))
 
 #calling the generic functions and storing the value in "result_ "
-result_1 = growth_score(growth_value)
-result_2 = profit_score(profit_value)
-result_3 = der_score(der_value)
-result_4 = fcf_score(fcf_value)
+result_1 = growth_score(user_growth_input)
+result_2 = profit_score(user_growth_input)
+result_3 = der_score(user_der_input)
+result_4 = fcf_score(user_fcf_input)
 
 #funcion that calculate the weighted of all results and bring back final score
 def fundemental_score(g:int, p:int, d:int, f:int) -> int:
